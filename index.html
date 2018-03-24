@@ -17,16 +17,28 @@
             <input type="file" accept="video/*">
         </div>
         <button type="submit">Get Video Info</button>
+        <div class="video-duration"></div>
     </form>
 
     <script>
+        const electron = require('electron')
+        const { ipcRenderer } = electron
+
         document.querySelector('form')
             .addEventListener('submit', (evt) => {
                 evt.preventDefault()
-                console.log('evt', evt)
-                const files = document.querySelector('input').files[0];
 
+                const { path } = document.querySelector('input').files[0];
+                ipcRenderer.send('video:submit', path)
             })
+
+        ipcRenderer.on('video:duration', (evt, duration) => {
+            document.querySelector('.video-duration').innerHTML =
+                (typeof duration === 'number')
+                    ? `Video duration is ${duration} seconds`
+                    : 'Cant find duration of video sorry'
+
+        })
     </script>
 </body>
 
