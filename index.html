@@ -10,6 +10,24 @@
 
 <body>
     <h1>Howdy everyone</h1>
+    <br>
+    <form action="">
+        <div>
+            <label>Select a Video</label>
+            <input type="file" accept="video/*">
+        </div>
+        <button type="submit">Get Video Info</button>
+    </form>
+
+    <script>
+        document.querySelector('form')
+            .addEventListener('submit', (evt) => {
+                evt.preventDefault()
+                console.log('evt', evt)
+                const files = document.querySelector('input').files[0];
+
+            })
+    </script>
 </body>
 
 </html>
